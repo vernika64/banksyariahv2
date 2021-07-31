@@ -9,8 +9,12 @@ class Karyawan extends Migration
 	public function up()
 	{
 		$this->forge->addField([
+			'uid'	=> [
+				'type'			=> 'INT',
+				'constraint'	=> 20
+			],
 			'nik'	=> [
-				'type'			=> 'CHAR',
+				'type'			=> 'INT',
 				'constraint'	=> 20
 			],
 			'nama'	=> [
@@ -51,10 +55,12 @@ class Karyawan extends Migration
 				'type'			=> 'DATETIME'
 			],
 			'deleted_at'		=> [
-				'type'			=> 'DATETIME'
+				'type'			=> 'DATETIME',
+				'NULL'			=> TRUE
 			]
 		]);
-		$this->forge->addKey('nik', true);
+		$this->forge->addKey('uid', true);
+		$this->forge->addUniqueKey('nik');
 		$this->forge->createTable('karyawan');
 	}
 

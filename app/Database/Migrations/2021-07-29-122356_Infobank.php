@@ -13,10 +13,6 @@ class Infobank extends Migration
 				'type'			=> 'INT',
 				'constraint'	=> 3
 			],
-			'tipe_bank'			=> [
-				'type'			=> 'INT',
-				'constraint'	=> 1
-			],
 			'nama_bank'			=> [
 				'type'			=> 'VARCHAR',
 				'constraint'	=> 100
@@ -40,7 +36,7 @@ class Infobank extends Migration
 		]);
 
 		$this->forge->addKey('kode_bank', true);
-		$this->forge->addKey('kode_manager');
+		$this->forge->addUniqueKey('kode_manager');
 		$this->forge->createTable('infobank');
 	}
 
