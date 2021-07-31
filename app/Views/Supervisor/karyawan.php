@@ -21,12 +21,15 @@ if (session()->getFlashdata('error') != NULL) :
 <?php
 endif;
 ?>
-<?php if ($validation->listErrors()) : ?>
-    <div class="alert alert-danger" role="alert">
-        <h4>Karyawan tidak bisa ditambahkan</h4>
-        <?= $validation->listErrors(); ?>
-    </div>
-<?php endif; ?>
+<?php // if ($validation->listErrors()) : 
+?>
+<!-- <div class="alert alert-danger" role="alert">
+        <h4>Karyawan tidak bisa ditambahkan</h4> -->
+<?php // $validation->listErrors(); 
+?>
+<!-- </div> -->
+<?php // endif; 
+?>
 <div class="white-box">
     <h1><?= $judul; ?></h1>
 
@@ -136,7 +139,15 @@ endif;
                         </td>
                         <td><?= $m['email']; ?></td>
                         <td>
-                            <p>Tombol</p>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-primary">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Aksi
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Edit Data</a></li>
+                                        <li><a class="dropdown-item" href="#">Hapus</a></li>
+                            </div>
                         </td>
                     <?php endif; ?>
                 </tr>

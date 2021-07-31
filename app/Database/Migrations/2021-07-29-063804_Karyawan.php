@@ -10,8 +10,9 @@ class Karyawan extends Migration
 	{
 		$this->forge->addField([
 			'uid'	=> [
-				'type'			=> 'INT',
-				'constraint'	=> 20
+				'type'				=> 'INT',
+				'constraint'		=> 20,
+				'auto_increment'	=> TRUE
 			],
 			'nik'	=> [
 				'type'			=> 'INT',

@@ -98,6 +98,14 @@ class Cpanel extends BaseController
 
 		return view('dashboard', $data);
 	}
+
+	// Modul Teller
+
+
+
+	// Modul Customer Service
+
+
 	public function cif()
 	{
 		$data = [
@@ -106,7 +114,7 @@ class Cpanel extends BaseController
 		return view('cif', $data);
 	}
 
-	// Field untuk Karyawan
+	// Field untuk Supervisor
 
 	public function karyawanz()
 	{
@@ -129,8 +137,9 @@ class Cpanel extends BaseController
 			'validation'	=> \Config\Services::validation()
 		];
 
-		return view('karyawan', $data);
+		return view('Supervisor/karyawan', $data);
 	}
+
 	public function buatKaryawan()
 	{
 		if (!$this->validate([
@@ -204,16 +213,4 @@ class Cpanel extends BaseController
 			return redirect()->to('karyawan');
 		}
 	}
-
-
-
-
-	// Field Untuk Supervisor
-
-	// Field untuk Customer Service
-
-	// Field untuk Teller
-
-	// Field untuk Back Office
-
 }
