@@ -1,0 +1,22 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.modal-kotak {
+  border-radius: 0px !important;
+}
+.logout-link {
+  color: #fff;
+}
+.logout-link:hover {
+  color: #fff;
+}
+.list-group-hv {
+  background-color: #2f323e;
+  cursor: pointer;
+}
+.list-group-hv:hover {
+  background-color: #2f323e;
+  opacity: 0.9;
+}
