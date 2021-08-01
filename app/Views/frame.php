@@ -7,7 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
-    <title>Ample Admin Lite Template by WrapPixel</title>
+    <title><?= $judul; ?></title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('addons/cpanel/plugins/images/favicon.png'); ?>">
@@ -134,17 +134,26 @@
                                     </a>
                                     <ul class="collapse" id="mdtl">
                                         <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark" href="#">
+                                            <a class="sidebar-link waves-effect waves-dark" href="st">
+                                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                                <span class="hide-menu">Setor Tunai</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-effect waves-dark" href="tt">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Tarik Tunai</span>
                                             </a>
-                                            <a class="sidebar-link waves-effect waves-dark" href="#">
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-effect waves-dark" href="tr">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Transfer</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+
                                 <!-- Modul Back Office -->
                                 <li class="sidebar-item pt-2">
                                     <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdbo">
@@ -157,6 +166,8 @@
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Pendanaan Murabahah</span>
                                             </a>
+                                        </li>
+                                        <li class="sidebar-tem">
                                             <a class="sidebar-link waves-effect waves-dark" href="#">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Investasi Mudharabah</span>
@@ -173,31 +184,31 @@
                                     </a>
                                     <ul class="collapse" id="mdcs">
                                         <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                            <a class="sidebar-link waves-effect waves-dark" href="regcif">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">CIF</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
-                                            <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                            <a class="sidebar-link waves-effect waves-dark" href="registrasirek">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Buka Rekening Tabungan</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
-                                            <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                            <a class="sidebar-link waves-effect waves-dark">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Tutup Rekening Tabungan</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
-                                            <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                            <a class="sidebar-link waves-effect waves-dark">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Investasi Mudharabah</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
-                                            <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                            <a class="sidebar-link waves-effect waves-dark">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Pendanaan Murabahah</span>
                                             </a>
@@ -213,21 +224,21 @@
                                     </a>
                                     <ul class="collapse" id="mdspv">
                                         <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv" href="karyawan">
+                                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="karyawan">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Karyawan</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                            <a class="sidebar-link waves-effect waves-dark sidebar-link">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                                <span class="hide-menu">Iron</span>
+                                                <span class="hide-menu">Transaksi Murabahah</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                            <a class="sidebar-link waves-effect waves-dark sidebar-link">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                                <span class="hide-menu">Copper</span>
+                                                <span class="hide-menu">Investasi Mudharabah</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -239,21 +250,14 @@
                             case 1:
 
                             ?>
-
                                 <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv" href="karyawan">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Karyawan</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
                                         <i class="fa fa-globe" aria-hidden="true"></i>
                                         <span class="hide-menu">Iron</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
                                         <i class="fa fa-globe" aria-hidden="true"></i>
                                         <span class="hide-menu">Copper</span>
                                     </a>
@@ -388,7 +392,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a href="https://www.wrappixel.com/">wrappixel.com</a>
+            <footer class="footer text-center"> Bank Syariah System Created by Vernika, Cpanel Template created by <a href="https://www.wrappixel.com/">wrappixel.com</a>
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

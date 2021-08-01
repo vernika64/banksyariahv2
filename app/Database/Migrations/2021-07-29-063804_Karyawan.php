@@ -15,7 +15,7 @@ class Karyawan extends Migration
 				'auto_increment'	=> TRUE
 			],
 			'nik'	=> [
-				'type'			=> 'INT',
+				'type'			=> 'BIGINT',
 				'constraint'	=> 20
 			],
 			'nama'	=> [

@@ -47,6 +47,24 @@ $routes->get('dashboard', 'Cpanel::dashboard', $cln);
 $routes->get('cif', 'Cpanel::cif', $cln);
 $routes->get('karyawan', 'Cpanel::karyawanz', $cln);
 
+// Rute CS
+
+// Sub Rute CS - CIF
+$routes->get('regcif', 'Cpanel::buatcif', $cln);
+$routes->post('procif', 'Cpanel::daftarcif');
+// Sub Rute CS - Rekening Wadiah
+$routes->get('registrasirek', 'Cpanel::regrek');
+$routes->post('registrasirek', 'Cpanel::regrek');
+$routes->post('prosesbuatrek', 'Cpanel::buattab');
+
+
+// Rute Teller
+$routes->get('tt', 'Cpanel::tariktunai', $cln); // Link Tarik Tunai
+$routes->get('st', 'Cpanel::setortunai', $cln); // Link Tarik Tunai
+$routes->get('tr', 'Cpanel::transfer', $cln); // Link Tarik Tunai
+
+
+
 // Pemrosesan Data
 $routes->post('dafkar', 'Cpanel::buatKaryawan', $cln);
 
