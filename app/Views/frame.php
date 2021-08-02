@@ -132,7 +132,7 @@
                                         <i class="fa fa-table" aria-hidden="true"></i>
                                         <span class="hide-menu">Modul Teller</span>
                                     </a>
-                                    <ul class="collapse" id="mdtl">
+                                    <ul class="collapse" id="mdtl" aria-expanded="false">
                                         <li class="sidebar-item">
                                             <a class="sidebar-link waves-effect waves-dark" href="tr">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
@@ -154,7 +154,7 @@
                                         <i class="fa fa-table" aria-hidden="true"></i>
                                         <span class="hide-menu">Modul Back Office</span>
                                     </a>
-                                    <ul class="collapse" id="mdbo">
+                                    <ul class="collapse" id="mdbo" aria-expanded="false">
                                         <li class="sidebar-item">
                                             <a class="sidebar-link waves-effect waves-dark" href="#">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
@@ -167,6 +167,12 @@
                                                 <span class="hide-menu">Investasi Mudharabah</span>
                                             </a>
                                         </li>
+                                        <li class="sidebar-tem">
+                                            <a class="sidebar-link waves-effect waves-dark" href="#">
+                                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                                <span class="hide-menu">Verif. Tabungan</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
 
@@ -176,7 +182,7 @@
                                         <i class="fa fa-globe" aria-hidden="true"></i>
                                         <span class="hide-menu">Modul Customer Service</span>
                                     </a>
-                                    <ul class="collapse" id="mdcs">
+                                    <ul class="collapse" id="mdcs" aria-expanded="false">
                                         <li class="sidebar-item">
                                             <a class="sidebar-link waves-effect waves-dark" href="regcif">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
@@ -190,7 +196,7 @@
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
-                                            <a class="sidebar-link waves-effect waves-dark">
+                                            <a class="sidebar-link waves-effect waves-dark" href="tutuprekening">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Tutup Rekening Tabungan</span>
                                             </a>
@@ -202,7 +208,7 @@
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
-                                            <a class="sidebar-link waves-effect waves-dark">
+                                            <a class="sidebar-link waves-effect waves-dark" href="formpendanaan">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Pendanaan Murabahah</span>
                                             </a>
@@ -238,6 +244,14 @@
                                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bksetortunai">
                                             <i class="fa fa-globe" aria-hidden="true"></i>
                                             <span class="hide-menu">Log Setor Tunai</span>
+                                        </a>
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#">
+                                            <i class="fa fa-globe" aria-hidden="true"></i>
+                                            <span class="hide-menu">Log Transfer</span>
+                                        </a>
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#">
+                                            <i class="fa fa-globe" aria-hidden="true"></i>
+                                            <span class="hide-menu">Log Buat Tabungan</span>
                                         </a>
                                 </li>
                     </ul>

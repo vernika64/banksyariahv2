@@ -534,6 +534,30 @@ class Cpanel extends BaseController
 		}
 	}
 
+	public function tutuprek()
+	{
+		$data = [
+			'judul'				=> "Tutup buku"
+		];
+		return view('CS/rek_tutup', $data);
+	}
+
+	// Sub Modul Pendanaan Murabahah
+
+	public function formpendanaan()
+	{
+		$data = [
+			'judul'		=> 'Pendanaan akad Murabahah'
+		];
+
+		return view('CS/formpendanaan', $data);
+	}
+
+	public function propendanaan()
+	{
+		//
+	}
+
 	// Field untuk Supervisor
 
 	public function karyawanz()

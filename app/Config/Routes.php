@@ -52,10 +52,16 @@ $routes->get('karyawan', 'Cpanel::karyawanz', $cln);
 // Sub Rute CS - CIF
 $routes->get('regcif', 'Cpanel::buatcif', $cln);
 $routes->post('procif', 'Cpanel::daftarcif');
+
 // Sub Rute CS - Rekening Wadiah
 $routes->get('registrasirek', 'Cpanel::regrek');
 $routes->post('registrasirek', 'Cpanel::regrek');
 $routes->post('prosesbuatrek', 'Cpanel::buattab');
+
+$routes->get('tutuprekening', 'Cpanel::tutuprek');
+
+// Sub Rute CS - Pendanaan Murabahah
+$routes->get('formpendanaan', 'Cpanel::formpendanaan');
 
 
 // Rute Teller
