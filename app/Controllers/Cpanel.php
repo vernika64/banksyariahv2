@@ -17,6 +17,9 @@ class Cpanel extends BaseController
 	protected $modulCif;
 	protected $modulTabungan;
 	protected $modulProdukTabungan;
+	protected $modulBkTransfer;
+	protected $modulBkTarikTunai;
+	protected $modulBkBuatTabungan;
 
 	public function __construct()
 	{
@@ -25,6 +28,9 @@ class Cpanel extends BaseController
 		$this->modulCif = new \App\Models\Cif();
 		$this->modulTabungan = new \App\Models\Tabungan();
 		$this->modulProdukTabungan = new \App\Models\ProdukTabungan();
+		$this->modulBkTransfer = new \App\Models\BkTransfer();
+		$this->modulBkTarikTunai = new \App\Models\BkTarikTunai();
+		$this->modulBkBuatTabungan = new \App\Models\BkBuatTabungan();
 	}
 
 	// Field untuk setup pertama kali
@@ -111,24 +117,179 @@ class Cpanel extends BaseController
 
 	public function tariktunai()
 	{
+		$no = 1;
+		$kd_cari = $this->request->getPost('kd_cari');
+		$db = \Config\Database::connect();
+		$query = $db->query("SELECT tabungan.tab_uid, tabungan.norek, cif.nama_cif, produk_tabungan.nama_produk FROM tabungan LEFT JOIN cif ON tabungan.nas_uid = cif.kode_id LEFT JOIN produk_tabungan ON tabungan.gol_tab = produk_tabungan.kode_tabungan WHERE tabungan.norek = '$kd_cari'");
+		$list = $query->getResult('array');
+
 		$data = [
-			'judul'	=> 'Tarik Tunai'
+			'judul'	=> 'Tarik Tunai',
+			'tabungan'	=> $list,
+			'no'		=> $no
 		];
 
 		return view('Teller/tariktunai', $data);
 	}
 
-	public function setortunai()
+	public function prosestt()
 	{
-		$data = [
-			'judul'		=> 'Setor Tunai'
-		];
+		session();
+		if (!$this->validate([
+			'kode'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Nominal Tarik Tunai harus diisi'
+				]
+			],
+			'jmltarik'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Nominal Tarik Tunai harus diisi'
+				]
+			]
+		])) {
+			$validation = \Config\Services::validation();
+			return redirect()->to('tt')->withInput()->with('validation', $validation);
+		}
 
-		return view('Teller/setortunai', $data);
+		$kd = $this->request->getPost('kode');
+		$nm = $this->request->getPost('jmltarik');
+
+		$cek = $this->modulTabungan->where('tab_uid', $kd)->first();
+		if ($cek != NULL) {
+			$value = $this->modulTabungan->where('tab_uid', $kd)->findAll();
+			$nominal = $value[0]['nominal'];
+			if ($nominal <= 50000) {
+				session()->setFlashdata('error', 'Jumlah penarikan melebihi batas minimal saldo tabungan');
+				return redirect()->to('tt');
+			} else {
+				$kdbank = session()->get('kd_bank');
+				$kdkar = session()->get('kode');
+
+				$calc = $nominal - $nm;
+
+				// KDBANK/TIPE_TRANSAKSI/LASTID/THN
+				$lastid = $this->modulBkTarikTunai->first();
+				if ($lastid == NULL) {
+					$nota = $kdbank . "/TRK/1" . date("Y");
+				} else {
+					$db = \Config\Database::connect();
+					$query = $db->query("SELECT uid FROM bk_tariktunai ORDER BY uid DESC LIMIT 1");
+					$ls = $query->getResult('array');
+					$notaakhir = $ls[0]['uid'] + 1;
+					$nota = $kdbank . "/TRK/" . $notaakhir . date("Y");
+				}
+
+				$this->modulBkTarikTunai->save([
+					'no_nota'				=> $nota,
+					'no_rek'				=> $value[0]['norek'],
+					'nominal'				=> $nm,
+					'saldo_akhir'			=> $calc,
+					'kd_karyawan'			=> $kdkar
+				]);
+
+				$this->modulTabungan->update($kd, ['nominal' => $calc]);
+				session()->setFlashdata('pesan', 'Tabungan berhasil ditarik');
+				return redirect()->to('tt');
+			}
+		} else {
+			session()->setFlashdata('error', 'Tabungan tidak terdaftar!');
+			return redirect()->to('tt');
+		}
 	}
 
 	public function transfer()
 	{
+
+		$rek_to = $this->request->getPost('norek');
+		$rek_nm = $this->request->getPost('an');
+		$num = $this->request->getPost('nominal');
+		$tunai = $this->request->getPost('tunai');
+		$saving = $this->request->getPost('tab');
+		$tbl_tn = $this->request->getPost('btntun');
+		$tbl_tb = $this->request->getPost('btntab');
+		$kd_bank = session()->get('kd_bank');
+		$kd_kar = session()->get('kode');
+
+		$db = \Config\Database::connect();
+		$builder = $db->query("SELECT uid FROM bk_transfer ORDER BY uid DESC LIMIT 1");
+		$last = $builder->getResult('array');
+
+
+		if ($last == NULL) {
+
+			// KDBANK/TIPE_TRANSAKSI/LASTID/THN
+			$nolast = 1;
+			$no_nota = $kd_bank . "/TRF/" . $nolast . "/" . date("Y");
+
+			if ($tbl_tn != NULL) {
+				$this->modulBkTransfer->save([
+					'no_nota'			=> $no_nota,
+					'no_rek_tujuan'		=> $rek_to,
+					'atasnama'			=> $rek_nm,
+					'num_transfer'		=> $num,
+					'jenis'				=> "TRF",
+					'nama_pengirim'		=> $tunai,
+					'kd_karyawan'		=> $kd_kar
+				]);
+				session()->setFlashdata('pesan', 'Data berhasil disimpan');
+			} else if ($tbl_tb != NULL) {
+				$nama_nas_tab = $db->query("SELECT cif.nama_cif FROM cif LEFT JOIN tabungan ON cif.kode_id = tabungan.nas_uid WHERE tabungan.norek = '$saving'");
+				$namanastab = $nama_nas_tab->getResult('array');
+				if ($namanastab != NULL) {
+					$this->modulBkTransfer->save([
+						'no_nota'			=> $no_nota,
+						'no_rek_tujuan'		=> $rek_to,
+						'atasnama'			=> $rek_nm,
+						'num_transfer'		=> $num,
+						'jenis'				=> "TRF",
+						'nama_pengirim'		=> $namanastab[0]['nama_cif'],
+						'no_rek_pengirim'	=> $saving,
+						'kd_karyawan'		=> $kd_kar
+					]);
+					session()->setFlashdata('pesan', 'Data berhasil disimpan');
+				} else {
+					session()->setFlashdata('error', 'Rekening Tabungan belum terdaftar');
+				}
+			}
+		} else {
+			$nolast = $last[0]['uid'] + 1;
+			$no_nota = $kd_bank . "/TRF/" . $nolast . "/" . date("Y");
+
+			if ($tbl_tn != NULL) {
+				$this->modulBkTransfer->save([
+					'no_nota'			=> $no_nota,
+					'no_rek_tujuan'		=> $rek_to,
+					'atasnama'			=> $rek_nm,
+					'num_transfer'		=> $num,
+					'jenis'				=> "TRF",
+					'nama_pengirim'		=> $tunai,
+					'kd_karyawan'		=> $kd_kar
+				]);
+				session()->setFlashdata('pesan', 'Data berhasil disimpan');
+			} else if ($tbl_tb != NULL) {
+				$nama_nas_tab = $db->query("SELECT cif.nama_cif FROM cif LEFT JOIN tabungan ON cif.kode_id = tabungan.nas_uid WHERE tabungan.norek = $saving");
+				$namanastab = $nama_nas_tab->getResult('array');
+				if ($namanastab != NULL) {
+					$this->modulBkTransfer->save([
+						'no_nota'			=> $no_nota,
+						'no_rek_tujuan'		=> $rek_to,
+						'atasnama'			=> $rek_nm,
+						'num_transfer'		=> $num,
+						'jenis'				=> "TRF",
+						'nama_pengirim'		=> $namanastab[0]['nama_cif'],
+						'no_rek_pengirim'	=> $saving,
+						'kd_karyawan'		=> $kd_kar
+
+					]);
+					session()->setFlashdata('pesan', 'Data berhasil disimpan');
+				} else {
+					session()->setFlashdata('error', 'Rekening Tabungan belum terdaftar');
+				}
+			}
+		}
+
 		$data = [
 			'judul'		=> 'Transfer Uang'
 		];
@@ -331,6 +492,7 @@ class Cpanel extends BaseController
 		$nk = $this->request->getPost('kode');
 		$ur = $this->request->getPost('urut');
 		$tb = $this->request->getPost('tabungan');
+		$kk = session()->get('kode');
 
 		// Plan untuk kedepan bila menggunakan TOS dan SK
 		// $ts = $this->request->getPost('TOS');
@@ -352,12 +514,22 @@ class Cpanel extends BaseController
 				'kd_bank'	=> $bk,
 				'gol_tab'	=> $tb,
 				'nominal'	=> 0,
-				'status'	=> 1
+				'status'	=> 0,
+				'cs_id'		=> $kk
 			]);
-			session()->setFlashdata('pesan', 'Tabungan berhasil ditambahkan!');
+
+			$this->modulBkBuatTabungan->save([
+				'no_rek' 		=> $nrk,
+				'nas_uid'		=> $nk,
+				'gol_tab'		=> $tb,
+				'kd_karyawan'	=> $kk,
+				'aksi'			=> "Buat Tabungan Baru"
+			]);
+
+			session()->setFlashdata('pesan', 'Tabungan berhasil ditambahkan, mohon tunggu konfirmasi dari Back Office');
 			return redirect()->to('registrasirek');
 		} else {
-			session()->setFlashdata('error', 'Tabungan gagal ditambahkan!');
+			session()->setFlashdata('error', 'CIF tidak terdaftar!');
 			return redirect()->to('registrasirek');
 		}
 	}
@@ -460,5 +632,28 @@ class Cpanel extends BaseController
 			session()->setFlashdata('pesan', 'Karyawan berhasil ditambahkan!');
 			return redirect()->to('karyawan');
 		}
+	}
+
+	// Sub Modul Cek Transaksi Setor Tunai
+	public function cekbktransfer()
+	{
+		$limiter = 5;
+		$hal = $this->request->getGet('page_karyawan');
+		if ($hal > 1) {
+			$no = 1 + ($limiter * $hal) - 5;
+		} else {
+			$no = 1;
+		}
+		$tabel = $this->modulBkTransfer->paginate($limiter, 'bk_transfer');
+		$pager = $this->modulBkTransfer->pager;
+
+		$data = [
+			'judul'				=> 'Data Transaksi Setor Tunai',
+			'bk_transfer'		=> $tabel,
+			'pager'				=> $pager,
+			'no'				=> $no
+		];
+
+		return view('Supervisor/bk_setor', $data);
 	}
 }

@@ -114,6 +114,6 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <?= $hal->links('karyawan', 'datatabel'); ?>
+    <?= $hal->links('cif', 'datatabel'); ?>
 </div>
 <?= $this->endSection(); ?>

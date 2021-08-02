@@ -134,7 +134,7 @@
                                     </a>
                                     <ul class="collapse" id="mdtl">
                                         <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark" href="st">
+                                            <a class="sidebar-link waves-effect waves-dark" href="tr">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Setor Tunai</span>
                                             </a>
@@ -143,12 +143,6 @@
                                             <a class="sidebar-link waves-effect waves-dark" href="tt">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Tarik Tunai</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark" href="tr">
-                                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                                <span class="hide-menu">Transfer</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -241,110 +235,115 @@
                                                 <span class="hide-menu">Investasi Mudharabah</span>
                                             </a>
                                         </li>
-                                    </ul>
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bksetortunai">
+                                            <i class="fa fa-globe" aria-hidden="true"></i>
+                                            <span class="hide-menu">Log Setor Tunai</span>
+                                        </a>
                                 </li>
+                    </ul>
+                    </li>
 
-                            <?php
+                <?php
                                 break;
                                 // Modul Supervisor
                             case 1:
 
-                            ?>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Iron</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Copper</span>
-                                    </a>
-                                </li>
+                ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Iron</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Copper</span>
+                        </a>
+                    </li>
 
-                            <?php
+                <?php
                                 break;
                                 // Modul Back Office
                             case 2:
 
-                            ?>
+                ?>
 
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Pendanaan Murabahah</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item pt-2">
-                                    <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Investasi Mudharabah</span>
-                                    </a>
-                                </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Pendanaan Murabahah</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item pt-2">
+                        <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Investasi Mudharabah</span>
+                        </a>
+                    </li>
 
-                            <?php
+                <?php
                                 break;
                                 // Modul Customer Service
                             case 3:
 
-                            ?>
+                ?>
 
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">CIF</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item pt-2">
-                                    <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Buka Rekening Tabungan</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item pt-2">
-                                    <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Tutup Rekening Tabungan</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item pt-2">
-                                    <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Investasi Mudharabah</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item pt-2">
-                                    <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Pendanaan Murabahah</span>
-                                    </a>
-                                </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">CIF</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item pt-2">
+                        <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Buka Rekening Tabungan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item pt-2">
+                        <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Tutup Rekening Tabungan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item pt-2">
+                        <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Investasi Mudharabah</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item pt-2">
+                        <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Pendanaan Murabahah</span>
+                        </a>
+                    </li>
 
-                            <?php
+                <?php
                                 break;
                                 // Modul Teller
                             case 4:
 
-                            ?>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark" href="#">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Tarik Tunai</span>
-                                    </a>
-                                    <a class="sidebar-link waves-effect waves-dark" href="#">
-                                        <i class="fa fa-globe" aria-hidden="true"></i>
-                                        <span class="hide-menu">Transfer</span>
-                                    </a>
-                                </li>
-                        <?php
+                ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark" href="#">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Tarik Tunai</span>
+                        </a>
+                        <a class="sidebar-link waves-effect waves-dark" href="#">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Transfer</span>
+                        </a>
+                    </li>
+            <?php
                                 break;
                             default:
                                 return redirect()->to('/');
                         }
-                        ?>
+            ?>
 
-                    </ul>
+            </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>

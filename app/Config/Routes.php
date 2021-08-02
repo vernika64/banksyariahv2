@@ -60,10 +60,14 @@ $routes->post('prosesbuatrek', 'Cpanel::buattab');
 
 // Rute Teller
 $routes->get('tt', 'Cpanel::tariktunai', $cln); // Link Tarik Tunai
-$routes->get('st', 'Cpanel::setortunai', $cln); // Link Tarik Tunai
-$routes->get('tr', 'Cpanel::transfer', $cln); // Link Tarik Tunai
+$routes->post('tt', 'Cpanel::tariktunai', $cln); // Link Post Tarik Tunai
+$routes->post('ptt', 'Cpanel::prosestt', $cln); // Link Post Tarik Tunai
 
+$routes->get('tr', 'Cpanel::transfer', $cln); // Link Setor Tunai
+$routes->post('tr', 'Cpanel::transfer', $cln); // Link Input Setor Tunai
 
+// Rute SPV
+$routes->get('bksetortunai', 'Cpanel::cekbktransfer', $cln); // Link Tarik Tunai
 
 // Pemrosesan Data
 $routes->post('dafkar', 'Cpanel::buatKaryawan', $cln);

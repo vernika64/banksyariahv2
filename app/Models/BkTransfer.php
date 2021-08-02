@@ -4,24 +4,26 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Tabungan extends Model
+class BkTransfer extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'tabungan';
-	protected $primaryKey           = 'tab_uid';
+	protected $table                = 'bk_transfer';
+	protected $primaryKey           = 'uid';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
 	protected $allowedFields        = [
-		'norek',
-		'nas_uid',
-		'kd_bank',
-		'gol_tab',
-		'nominal',
-		'status',
-		'cs_id'
+		'no_nota',
+		'no_rek_tujuan',
+		'atasnama',
+		'num_transfer',
+		'jenis',
+		'nama_pengirim',
+		'no_rek_pengirim',
+		'kd_karyawan'
+
 	];
 
 	// Dates
