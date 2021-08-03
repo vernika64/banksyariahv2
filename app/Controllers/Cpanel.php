@@ -20,6 +20,7 @@ class Cpanel extends BaseController
 	protected $modulBkTransfer;
 	protected $modulBkTarikTunai;
 	protected $modulBkBuatTabungan;
+	protected $modulBkBuatPendanaan;
 
 	public function __construct()
 	{
@@ -31,6 +32,7 @@ class Cpanel extends BaseController
 		$this->modulBkTransfer = new \App\Models\BkTransfer();
 		$this->modulBkTarikTunai = new \App\Models\BkTarikTunai();
 		$this->modulBkBuatTabungan = new \App\Models\BkBuatTabungan();
+		$this->modulBkBuatPendanaan = new \App\Models\BkBuatPendanaan();
 	}
 
 	// Field untuk setup pertama kali
@@ -120,9 +122,12 @@ class Cpanel extends BaseController
 		$no = 1;
 		$kd_cari = $this->request->getPost('kd_cari');
 		$db = \Config\Database::connect();
-		$query = $db->query("SELECT tabungan.tab_uid, tabungan.norek, cif.nama_cif, produk_tabungan.nama_produk FROM tabungan LEFT JOIN cif ON tabungan.nas_uid = cif.kode_id LEFT JOIN produk_tabungan ON tabungan.gol_tab = produk_tabungan.kode_tabungan WHERE tabungan.norek = '$kd_cari'");
+		$query = $db->query("SELECT tabungan.tab_uid, tabungan.norek, cif.nama_cif, produk_tabungan.nama_produk, tabungan.status FROM tabungan LEFT JOIN cif ON tabungan.nas_uid = cif.kode_id LEFT JOIN produk_tabungan ON tabungan.gol_tab = produk_tabungan.kode_tabungan WHERE tabungan.norek = '$kd_cari AND tabungan.status = 1'");
 		$list = $query->getResult('array');
 
+		if (count($list) == NULL && $kd_cari != NULL) {
+			session()->setFlashdata('error', 'Tabungan tidak ditemukan');
+		}
 		$data = [
 			'judul'	=> 'Tarik Tunai',
 			'tabungan'	=> $list,
@@ -159,6 +164,14 @@ class Cpanel extends BaseController
 		$cek = $this->modulTabungan->where('tab_uid', $kd)->first();
 		if ($cek != NULL) {
 			$value = $this->modulTabungan->where('tab_uid', $kd)->findAll();
+			if ($value[0]['status'] == 2 || $value[0]['deleted_at'] != NULL) {
+				session()->setFlashdata('error', 'Tabungan sudah tidak berlaku!');
+				return redirect()->to('tt');
+			} else if ($value[0]['status'] == 0 || $value[0]['status'] == 3) {
+				session()->setFlashdata('error', 'Tabungan masih belum aktif!');
+				return redirect()->to('tt');
+			}
+
 			$nominal = $value[0]['nominal'];
 			if ($nominal <= 50000) {
 				session()->setFlashdata('error', 'Jumlah penarikan melebihi batas minimal saldo tabungan');
@@ -546,8 +559,13 @@ class Cpanel extends BaseController
 
 	public function formpendanaan()
 	{
+		$tombol = $this->request->getPost('tombol');
+
+		$db = \Config\Database::connect();
+		$list = $this->modulCif->findAll();
 		$data = [
-			'judul'		=> 'Pendanaan akad Murabahah'
+			'judul'		=> 'Pendanaan akad Murabahah',
+			'list'		=> $list
 		];
 
 		return view('CS/formpendanaan', $data);
@@ -555,7 +573,88 @@ class Cpanel extends BaseController
 
 	public function propendanaan()
 	{
-		//
+		if (!$this->validate([
+			'nasabah'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Kolom nasabah harus dipilih'
+				]
+			],
+			'jenis'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Jenis pendanaan harus diisi'
+				]
+			],
+			'barang'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Nama barang harus diisi'
+				]
+			],
+			'qty'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Jumlah barang harus diisi'
+				]
+			],
+			'alasan'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Alasan pendanaan harus diisi'
+				]
+			],
+			'tipem'		=> [
+				'rules'		=> 'required',
+				'errors'	=> [
+					'required'	=> 'Metode Pembayaran harus dipilih salah satu'
+				]
+			],
+
+		])) {
+		}
+		$kdbank = session()->get('kd_bank');
+		$nasabah = $this->request->getPost('nasabah');
+		$jenis = $this->request->getPost('jenis');
+		$barang = $this->request->getPost('barang');
+		$qty = $this->request->getPost('qty');
+		$harga = $this->request->getPost('harga');
+		$alasan = $this->request->getPost('alasan');
+		$tipem = $this->request->getPost('tipem');
+		$cs = session()->get('kode');
+
+		// Untuk selanjutnya bila memakai file untuk pendukung pendanaan
+		// $pendukung = $this->request->getPost('pendukung');
+		// $sk = $this->request->getPost('sk');
+
+		try {
+			$cek = $this->modulBkBuatPendanaan->first();
+			if ($cek == NULL) {
+				$no_nota = $kdbank . "/TRK/1" . date("Y");
+			} else {
+				$db = \Config\Database::connect();
+				$q = $db->query('SELECT uid FROM bk_pendanaan ORDER BY uid DESC LIMIT 1');
+				$s = $q->getResult('array');
+				$no_nota = $kdbank . "/TRK/" . $s[0]['uid'] . date("Y");
+			}
+			$this->modulBkBuatPendanaan->save([
+				'no_nota'			=> $no_nota,
+				'kd_cif'			=> $nasabah,
+				'jenis'				=> $jenis,
+				'barang'			=> $barang,
+				'qty'				=> $qty,
+				'satuan'			=> $harga,
+				'alasan'			=> $alasan,
+				'pembayaran'		=> $tipem,
+				'cs_id'				=> $cs
+			]);
+
+			session()->setFlashdata('pesan', 'Permintaan berhasil diajukan, tunggu konfirmasi dari Back Office!');
+			return redirect()->to('formpendanaan');
+		} catch (Exception $e) {
+			session()->setFlashdata('error', 'Terjadi kesalahan di dalam aplikasi, segera hubungi Administrator!');
+			return redirect()->to('formpendanaan');
+		}
 	}
 
 	// Field untuk Supervisor
@@ -679,5 +778,51 @@ class Cpanel extends BaseController
 		];
 
 		return view('Supervisor/bk_setor', $data);
+	}
+
+	// Modul Back Office
+
+	public function veriftab()
+	{
+
+		$no = 1;
+
+		$db = \Config\Database::connect();
+		$query = $db->query("SELECT tabungan.tab_uid, tabungan.gol_tab, tabungan.norek, tabungan.status, cif.nama_cif, produk_tabungan.nama_produk FROM tabungan LEFT JOIN cif ON tabungan.nas_uid = cif.kode_id LEFT JOIN produk_tabungan ON tabungan.gol_tab = produk_tabungan.kode_tabungan WHERE tabungan.status = 0");
+		$tabungan = $query->getResult('array');
+
+		$data = [
+			'judul'		=> 'Verifikasi Data Tabungan',
+			'tabungan'	=> $tabungan,
+			'no'		=> $no,
+		];
+
+		return view('BO/verifikasitabungan', $data);
+	}
+
+	public function proveriftabok()
+	{
+		$tombol = $this->request->getPost('kirim');
+		$kode = $this->request->getPost('kode');
+
+		try {
+			switch ($tombol) {
+				case "Terima":
+					$this->modulTabungan->update($kode, ['status' => 1]);
+					session()->setFlashdata('pesan', 'Tabungan berhasil diaktifkan');
+					break;
+				case "Tolak":
+					$this->modulTabungan->update($kode, ['status' => 3]);
+					session()->setFlashdata('pesan', 'Tabungan berhasil ditolak');
+					break;
+				default:
+					session()->setFlashdata('pesan', 'Terjadi error di sistem, silahkan menghubungi Administrator!');
+			}
+
+			return redirect()->to('verifikasitabungan');
+		} catch (Exception $e) {
+			session()->setFlashdata('error', $e);
+			return redirect()->to('verifikasitabungan');
+		}
 	}
 }

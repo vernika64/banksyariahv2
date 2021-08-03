@@ -62,6 +62,8 @@ $routes->get('tutuprekening', 'Cpanel::tutuprek');
 
 // Sub Rute CS - Pendanaan Murabahah
 $routes->get('formpendanaan', 'Cpanel::formpendanaan');
+$routes->post('buatkontrakpen', 'Cpanel::propendanaan');
+
 
 
 // Rute Teller
@@ -74,6 +76,15 @@ $routes->post('tr', 'Cpanel::transfer', $cln); // Link Input Setor Tunai
 
 // Rute SPV
 $routes->get('bksetortunai', 'Cpanel::cekbktransfer', $cln); // Link Tarik Tunai
+
+
+
+// Rute Back Office
+$routes->get('verifikasitabungan', 'Cpanel::veriftab', $cln);
+$routes->get('verifikasitabungan', 'Cpanel::veriftab', $cln);
+$routes->post('veriftabok', 'Cpanel::proveriftabok', $cln);
+
+
 
 // Pemrosesan Data
 $routes->post('dafkar', 'Cpanel::buatKaryawan', $cln);

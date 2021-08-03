@@ -17,6 +17,8 @@
     <!-- Custom CSS -->
     <link href="<?= base_url('addons/cpanel/css/style.min.css'); ?>" rel="stylesheet">
     <link href="<?= base_url('addons/cpanel/css/tambahan.css'); ?>" rel="stylesheet">
+    <!-- Select 2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -156,6 +158,12 @@
                                     </a>
                                     <ul class="collapse" id="mdbo" aria-expanded="false">
                                         <li class="sidebar-item">
+                                            <a class="sidebar-link waves-effect waves-dark" href="regcif">
+                                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                                <span class="hide-menu">CIF</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
                                             <a class="sidebar-link waves-effect waves-dark" href="#">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Pendanaan Murabahah</span>
@@ -168,7 +176,7 @@
                                             </a>
                                         </li>
                                         <li class="sidebar-tem">
-                                            <a class="sidebar-link waves-effect waves-dark" href="#">
+                                            <a class="sidebar-link waves-effect waves-dark" href="verifikasitabungan">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Verif. Tabungan</span>
                                             </a>
@@ -422,6 +430,8 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="<?= base_url('addons/cpanel/plugins/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <!-- Bootstrap tether Core JavaScript -->
     <script src="<?= base_url('addons/cpanel/bootstrap/dist/js/bootstrap.bundle.min.js'); ?>"></script>
     <script src="<?= base_url('addons/cpanel/js/app-style-switcher.js'); ?>"></script>
@@ -437,6 +447,11 @@
     <!-- <script src="<?= base_url('addons/cpanel/plugins/bower_components/chartist/dist/chartist.min.js'); ?>"></script>
     <script src="<?= base_url('addons/cpanel/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'); ?>"></script>
     <script src="<?= base_url('addons/cpanel/js/pages/dashboards/dashboard1.js'); ?>"></script> -->
+    <script>
+        $(document).ready(function() {
+            $("#carinasabah").select2();
+        });
+    </script>
 </body>
 
 </html>
