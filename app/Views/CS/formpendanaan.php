@@ -65,7 +65,7 @@
                 <select name="nasabah" class="form-select">
                     <option value="">-- Pilih Nasabah --</option>
                     <?php foreach ($list as $z) : ?>
-                        <option value="<?= $z['uid']; ?>" data-bs-toggle="collapse" data-bs-target="#tambah"><?= $z['kode_id']; ?> - <?= $z['nama_cif']; ?></option>
+                        <option value="<?= $z['kode_id']; ?>" data-bs-toggle="collapse" data-bs-target="#tambah"><?= $z['kode_id']; ?> - <?= $z['nama_cif']; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

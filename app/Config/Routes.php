@@ -85,6 +85,10 @@ $routes->get('verifikasitabungan', 'Cpanel::veriftab', $cln);
 $routes->post('veriftabok', 'Cpanel::proveriftabok', $cln);
 
 
+$routes->get('verifikasipendanaan', 'Cpanel::verifpendanaan', $cln);
+$routes->post('verifpendaok', 'Cpanel::proverifpenda', $cln);
+
+
 
 // Pemrosesan Data
 $routes->post('dafkar', 'Cpanel::buatKaryawan', $cln);

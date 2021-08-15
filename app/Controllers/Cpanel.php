@@ -635,7 +635,8 @@ class Cpanel extends BaseController
 				$db = \Config\Database::connect();
 				$q = $db->query('SELECT uid FROM bk_pendanaan ORDER BY uid DESC LIMIT 1');
 				$s = $q->getResult('array');
-				$no_nota = $kdbank . "/TRK/" . $s[0]['uid'] . date("Y");
+				$ww = $s[0]['uid'] + 1;
+				$no_nota = $kdbank . "/TRK/" . $ww . date("Y");
 			}
 			$this->modulBkBuatPendanaan->save([
 				'no_nota'			=> $no_nota,
@@ -652,7 +653,7 @@ class Cpanel extends BaseController
 			session()->setFlashdata('pesan', 'Permintaan berhasil diajukan, tunggu konfirmasi dari Back Office!');
 			return redirect()->to('formpendanaan');
 		} catch (Exception $e) {
-			session()->setFlashdata('error', 'Terjadi kesalahan di dalam aplikasi, segera hubungi Administrator!');
+			session()->setFlashdata('error', 'Terjadi kesalahan di dalam aplikasi, segera hubungi Administrator!' . $e);
 			return redirect()->to('formpendanaan');
 		}
 	}
@@ -823,6 +824,44 @@ class Cpanel extends BaseController
 		} catch (Exception $e) {
 			session()->setFlashdata('error', $e);
 			return redirect()->to('verifikasitabungan');
+		}
+	}
+
+	public function verifpendanaan()
+	{
+		$no = 1;
+		$db = \Config\Database::connect();
+		$q = $db->query('SELECT cif.nama_cif, cif.kode_id, cif.alamat_cif,bk_pendanaan.uid, bk_pendanaan.pembayaran, bk_pendanaan.alasan, bk_pendanaan.status, bk_pendanaan.no_nota, bk_pendanaan.jenis, bk_pendanaan.barang, bk_pendanaan.qty, bk_pendanaan.satuan FROM bk_pendanaan LEFT JOIN cif ON bk_pendanaan.kd_cif = cif.kode_id');
+		$r = $q->getResult('array');
+
+		$data = [
+			'judul'	=> 'List Pendanaan yang butuh diverifikasi',
+			'list'	=> $r,
+			'no'	=> $no
+		];
+
+		return view('BO/verifikasipendanaan', $data);
+	}
+
+	public function proverifpenda()
+	{
+		$nota = $this->request->getPost('nota');
+		$btn = $this->request->getPost('lanjut');
+
+
+		if ($btn == "Verifikasi") {
+			$s = 1;
+		} else if ($btn == "Tolak") {
+			$s = 4;
+		}
+
+		try {
+			$this->modulBkBuatPendanaan->update($nota, ['status' => $s]);
+			session()->setFlashdata('pesan', 'Pendanaan berhasil diverifikasi');
+			return redirect()->to('verifikasipendanaan');
+		} catch (Exception $e) {
+			session()->setFlashdata('error', 'Teradi error di dalam sistem, silahkan menghubungi Administrator!');
+			return redirect()->to('verifikasipendanaan');
 		}
 	}
 }

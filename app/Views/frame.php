@@ -164,7 +164,7 @@
                                             </a>
                                         </li>
                                         <li class="sidebar-item">
-                                            <a class="sidebar-link waves-effect waves-dark" href="#">
+                                            <a class="sidebar-link waves-effect waves-dark" href="verifikasipendanaan">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
                                                 <span class="hide-menu">Pendanaan Murabahah</span>
                                             </a>
