@@ -172,7 +172,7 @@
                                         <li class="sidebar-tem">
                                             <a class="sidebar-link waves-effect waves-dark" href="#">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                                <span class="hide-menu">Investasi Mudharabah</span>
+                                                <span class="hide-menu">Peminjaman Mudharabah</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-tem">
@@ -210,9 +210,9 @@
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
-                                            <a class="sidebar-link waves-effect waves-dark">
+                                            <a class="sidebar-link waves-effect waves-dark" href="formpeminjaman">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                                <span class="hide-menu">Investasi Mudharabah</span>
+                                                <span class="hide-menu">Peminjaman Mudharabah</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item pt-2">
@@ -246,7 +246,7 @@
                                         <li class="sidebar-item">
                                             <a class="sidebar-link waves-effect waves-dark sidebar-link">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                                <span class="hide-menu">Investasi Mudharabah</span>
+                                                <span class="hide-menu">Peminjaman Mudharabah</span>
                                             </a>
                                         </li>
                                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bksetortunai">
@@ -300,7 +300,7 @@
                     <li class="sidebar-item pt-2">
                         <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
                             <i class="fa fa-globe" aria-hidden="true"></i>
-                            <span class="hide-menu">Investasi Mudharabah</span>
+                            <span class="hide-menu">Peminjaman Mudharabah</span>
                         </a>
                     </li>
 
@@ -332,7 +332,7 @@
                     <li class="sidebar-item pt-2">
                         <a class="sidebar-link waves-effect waves-dark" aria-expanded="false" role="button" data-bs-toggle="collapse" data-bs-target="#mdspv">
                             <i class="fa fa-globe" aria-hidden="true"></i>
-                            <span class="hide-menu">Investasi Mudharabah</span>
+                            <span class="hide-menu">Peminjaman Mudharabah</span>
                         </a>
                     </li>
                     <li class="sidebar-item pt-2">

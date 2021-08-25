@@ -555,6 +555,61 @@ class Cpanel extends BaseController
 		return view('CS/rek_tutup', $data);
 	}
 
+	// Sub Modul Peminjaman Mudharabah
+
+	public function formpeminjamanuang()
+	{
+		$listcif = $this->modulCif->findAll();
+
+		$data = [
+			'judul'			=> "Peminjaman Mudharabah",
+			'listcif'		=> $listcif
+		];
+
+		return view('CS/forminvestasi', $data);
+	}
+	public function propeminjamuang()
+	{
+		if (!$this->validate([
+			'tipepeminjam' => [
+				'rules'	=> 'required',
+				'errors'	=> [
+					'required'	=> 'Jenis Peminjam harus diisi'
+				]
+			],
+			'cif'	=> [
+				'rules'	=> 'required',
+				'errors'	=> [
+					'required'	=> 'Data CIF harus dipilih'
+				]
+			],
+			'nominal'	=> [
+				'rules'	=> 'required|integer|is_natural_no_zero',
+				'errors'	=> [
+					'required'	=> 'Jumlah nominal harus diisi',
+					'integer'	=> 'Data harus diisi dengan angka',
+					'is_natural_no_zero'	=> 'Nominal tidak boleh 0 atau negatif'
+				]
+			],
+			'alasan'	=> [
+				'rules'	=> 'required',
+				'errors'	=> [
+					'required'	=> 'Alasan peminjaman harus diisi'
+				]
+			]
+		])) {
+			$validation = \Config\Services::validation();
+			return redirect()->to('formpeminjaman')->withInput()->with('validation', $validation);
+		}
+
+		$d1 = $this->request->getPost('tipepeminjam');
+		$d2 = $this->request->getPost('cif');
+		$d3 = $this->request->getPost('nominal');
+		$d4 = $this->request->getPost('alasan');
+		$d5 = $this->request->getPost('dokumen');
+	}
+
+
 	// Sub Modul Pendanaan Murabahah
 
 	public function formpendanaan()

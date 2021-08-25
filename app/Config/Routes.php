@@ -64,7 +64,8 @@ $routes->get('tutuprekening', 'Cpanel::tutuprek');
 $routes->get('formpendanaan', 'Cpanel::formpendanaan');
 $routes->post('buatkontrakpen', 'Cpanel::propendanaan');
 
-
+// Sub Rute CS - Peminjaman Mudharabah
+$routes->get('formpeminjaman', 'Cpanel::formpeminjamanuang');
 
 // Rute Teller
 $routes->get('tt', 'Cpanel::tariktunai', $cln); // Link Tarik Tunai
